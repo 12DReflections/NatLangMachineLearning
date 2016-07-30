@@ -1,13 +1,14 @@
 import nltk
 import random
 from nltk.corpus import movie_reviews
+import pickle
 
 # A naive bayes algorithm, finding the words which lead to a positive/negative classification of an article
 
 # Text Classification with nltk library
 # Works if you have a body of a words and a boolean classification ie (positive, negative) as a tuple
 
-
+# Get a list of documents, which contain a list of words from each document and a category of review positive/negative
 documents = [(list(movie_reviews.words(fileid)), category) 
 				for category in movie_reviews.categories() 
 				for fileid in movie_reviews.fileids(category)]
@@ -57,10 +58,19 @@ featuresets = [(find_features(rev), category) for (rev, category) in documents]
 training_set = featuresets[:1900]
 testing_set = featuresets[1900:]
 
-# Naive bayes
-# post_occurence = prior_occurrence * liklihood / evidence 
+# Naive bayes      ---       post_occurence = prior_occurrence * liklihood / evidence 
 # Show whether a word is more likely to be in a positive or negative review
-classifier = nltk.NaiveBayesClassifier.train(training_set)
+#classifier = nltk.NaiveBayesClassifier.train(training_set)
+
+classifier_file = open("naivebayes.pickle", "rb")
+classifier = pickle.load(classifier_file)
+classifier_file.close()
+
 print("Naive Bayes Algo accuracy percent: ", (nltk.classify.accuracy(classifier, training_set)) * 100)
 classifier.show_most_informative_features(15)
+
+#Save the classifier with pickle
+save_classifier = open("naivebayes.pickle", "wb") #write in bytes
+pickle.dump(classifier, save_classifier) #save the "classifier" to the location "save_classifier" 
+save_classifier.close()
 print 'kitty'
