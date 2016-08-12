@@ -73,4 +73,4 @@ classifier.show_most_informative_features(15)
 save_classifier = open("naivebayes.pickle", "wb") #write in bytes
 pickle.dump(classifier, save_classifier) #save the "classifier" to the location "save_classifier" 
 save_classifier.close()
-print 'kitty'
+print 'program terminated'
