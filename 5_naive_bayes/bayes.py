@@ -1,7 +1,7 @@
 import nltk
 import random
 from nltk.corpus import movie_reviews
-
+nltk.download()
 # A naive bayes algorithm, finding the words which lead to a positive/negative classification of an article
 
 # Text Classification with nltk library
