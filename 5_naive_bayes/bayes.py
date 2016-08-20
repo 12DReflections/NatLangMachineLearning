@@ -1,12 +1,12 @@
 import nltk
 import random
 from nltk.corpus import movie_reviews
+from nltk.tokenize import word_tokenize
 
 # A naive bayes algorithm, finding the words which lead to a positive/negative classification of an article
 
 # Text Classification with nltk library
 # Works if you have a body of a words and a boolean classification ie (positive, negative) as a tuple
-
 
 documents = [(list(movie_reviews.words(fileid)), category) 
 				for category in movie_reviews.categories() 
@@ -37,11 +37,14 @@ word_features = list(all_words.keys())[:3000]
 
 # A set removes doubled elements, only single representation
 def find_features(document):
-	words = set(document)
+	words = word_tokenize(document)
+	print words
+	#print words
 	features = {}
 	for w in word_features:
 		# (w in words) creates boolean value for each word, if word in document it will return true, else it will return false
 		features[w] = (w in words) 
+	print features
 	return features
 
 # sentence = "this is a sentence of words in a string format alfalfa"
@@ -49,6 +52,10 @@ def find_features(document):
 # print feat
 
 #print((find_features(movie_reviews.words('neg/cv000_29416.txt'))))
+
+
+clas_sentence = 'refreshingly dismissed madsen'
+clas = find_features(clas_sentence)
 
 # The existence of words in a document, from our training words, and whether they lead to a positive/negative category
 featuresets = [(find_features(rev), category) for (rev, category) in documents]
@@ -61,6 +68,9 @@ testing_set = featuresets[1900:]
 # post_occurence = prior_occurrence * liklihood / evidence 
 # Show whether a word is more likely to be in a positive or negative review
 classifier = nltk.NaiveBayesClassifier.train(training_set)
-print("Naive Bayes Algo accuracy percent: ", (nltk.classify.accuracy(classifier, training_set)) * 100)
+print("Naive Bayes Algo accuracy percent: ", (nltk.classify.accuracy(classifier, testing_set)) * 100)
 classifier.show_most_informative_features(15)
+print classifier.classify(clas)
+#print clas
+
 print 'kitty'

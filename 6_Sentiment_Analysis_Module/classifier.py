@@ -104,6 +104,10 @@ print(len(featuresets))
 testing_set = featuresets[10000:]
 training_set = featuresets[:10000]
 
+feature_classifier = open("pickled_algos/featuresets.pickle","wb")
+pickle.dump(featuresets, feature_classifier)
+feature_classifier.close()
+
 
 classifier = nltk.NaiveBayesClassifier.train(training_set)
 print("Original Naive Bayes Algo accuracy percent:", (nltk.classify.accuracy(classifier, testing_set))*100)
