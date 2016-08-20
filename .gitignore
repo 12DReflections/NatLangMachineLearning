@@ -87,3 +87,4 @@ ENV/
 
 # Rope project settings
 .ropeproject
+6_Sentiment_Analysis_Module/pickled_algos/featuresets.pickle
