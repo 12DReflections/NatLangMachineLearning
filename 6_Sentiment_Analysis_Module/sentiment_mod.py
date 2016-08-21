@@ -70,9 +70,9 @@ training_set = featuresets[:10000]
 
 
 
-# open_file = open("pickled_algos/originalnaivebayes5k.pickle", "rb")
-# classifier = pickle.load(open_file)
-# open_file.close()
+open_file = open("pickled_algos/originalnaivebayes5k.pickle", "rb")
+classifier = pickle.load(open_file)
+open_file.close()
 
 
 open_file = open("pickled_algos/MNB_classifier5k.pickle", "rb")
