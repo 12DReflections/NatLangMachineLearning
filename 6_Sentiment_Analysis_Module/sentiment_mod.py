@@ -14,31 +14,32 @@ from nltk.tokenize import word_tokenize
 
 
 
-class VoteClassifier(ClassifierI):
+class ClassifyVotes(ClassifierI):
     def __init__(self, *classifiers):
         self._classifiers = classifiers
 
+    # Cycle through classifiers and append the features
     def classify(self, features):
-        votes = []
+        matches = []
         for c in self._classifiers:
             v = c.classify(features)
-            votes.append(v)
-        return mode(votes)
+            matches.append(v)
+        return mode(matches)
 
-    def confidence(self, features):
-        votes = []
+    def accuracy_confidence(self, features):
+        matches = []
         for c in self._classifiers:
             v = c.classify(features)
-            votes.append(v)
+            matches.append(v)
 
-        choice_votes = votes.count(mode(votes))
-        conf = choice_votes / len(votes)
+        choice_matches = matches.count(mode(matches))
+        conf = choice_matches / len(matches)
         return conf
 
 
-documents_f = open("pickled_algos/documents.pickle", "rb")
-documents = pickle.load(documents_f)
-documents_f.close()
+documents_collection = open("pickled_algos/documents.pickle", "rb")
+documents = pickle.load(documents_collection)
+documents_collection.close()
 
 
 
@@ -103,7 +104,7 @@ open_file.close()
 
 
 
-voted_classifier = VoteClassifier(
+voted_classifier = ClassifyVotes(
                                   # classifier,
                                   LinearSVC_classifier,
                                   MNB_classifier,
@@ -114,5 +115,5 @@ voted_classifier = VoteClassifier(
 
 
 def sentiment(text):
-    feats = find_features(text)
-    return voted_classifier.classify(feats),voted_classifier.confidence(feats)
+    featurefind = find_features(text)
+    return voted_classifier.classify(featurefind),voted_classifier.accuracy_confidence(featurefind)

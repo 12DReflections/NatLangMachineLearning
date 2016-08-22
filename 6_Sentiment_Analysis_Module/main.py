@@ -3,5 +3,5 @@ import sentiment_mod as s
 
 #using a sentiment module 
 print 'starting'
-print(s.sentiment("This movie was awesome! The acting was great, plot was wonderful, and there were pythons...so yea!"))
-print(s.sentiment("This movie was utter junk. There were absolutely 0 pythons. I don't see what the point was at all. Horrible movie, 0/10"))
+print(s.sentiment("This movie was awesome! The acting really was wonderful, and the plot was epic!"))
+print(s.sentiment("This movie was utter gargbage. There was absolutely nothing worse seeing in the movie. I didn't understand the point in going to it."))
